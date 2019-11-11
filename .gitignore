@@ -1,3 +1,5 @@
 .gradle
 .idea
 build
+grpc_server.pub
+grpc_server
