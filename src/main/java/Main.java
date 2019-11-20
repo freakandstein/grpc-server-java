@@ -9,10 +9,11 @@ public class Main {
         ServerManager server = new ServerManager();
         InputStreamReader r = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(r);
-        System.out.println("Type your message for client");
+        System.out.println("Input your message to client (for Server Stream or Client Server Stream Call):");
         while (true) {
             String message = br.readLine();
-            if (message.equals("")) {
+            // With send empty string, it means stop the service
+            if (message.equals("quit")) {
                 break;
             }
             server.sendMessageToClient(message);

@@ -27,16 +27,15 @@ public class MessengerService extends MessengerGrpc.MessengerImplBase {
         iResponseObserver.setupResponseObserver(responseObserver);
         MessageResponse responseStatus = MessageResponse.newBuilder().setText(request.getText()).build();
         responseObserver.onNext(responseStatus);
+        System.out.println("Message (Server Stream) : " + request.getText());
     }
 
     @Override
     public StreamObserver<MessageRequest> getMessageClientStream(StreamObserver<MessageResponse> responseObserver) {
         return new StreamObserver<MessageRequest>() {
-            String result = "";
             @Override
             public void onNext(MessageRequest value) {
-                result += value.getText() + " ";
-                System.out.println("Result : " + result);
+                System.out.println("Message (Client Stream) : " + value.getText());
             }
 
             @Override
@@ -46,7 +45,8 @@ public class MessengerService extends MessengerGrpc.MessengerImplBase {
 
             @Override
             public void onCompleted() {
-                MessageResponse response = MessageResponse.newBuilder().setText(result).build();
+                String message = "Stream from client is completed";
+                MessageResponse response = MessageResponse.newBuilder().setText(message).build();
                 responseObserver.onNext(response);
                 responseObserver.onCompleted();
             }
@@ -61,6 +61,8 @@ public class MessengerService extends MessengerGrpc.MessengerImplBase {
             public void onNext(MessageRequest value) {
                 MessageResponse responseStatus = MessageResponse.newBuilder().setText(value.getText()).build();
                 responseObserver.onNext(responseStatus);
+                iResponseObserver.setupResponseObserver(responseObserver);
+                System.out.println("Message (Client Server Stream) : " + value.getText());
             }
 
             @Override

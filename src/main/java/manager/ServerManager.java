@@ -33,7 +33,15 @@ public class ServerManager implements IResponseObserver {
     public void sendMessageToClient(String text) {
         if (responseObserverServerStream != null) {
             MessageResponse response = MessageResponse.newBuilder().setText(text).build();
-            responseObserverServerStream.onNext(response);
+            try{
+                if (text.isEmpty()) {
+                    responseObserverServerStream.onCompleted();
+                } else {
+                    responseObserverServerStream.onNext(response);
+                }
+            }catch(IllegalStateException exception) {
+                System.out.println(exception.getMessage());
+            }
         }
     }
 
