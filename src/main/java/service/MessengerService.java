@@ -20,6 +20,7 @@ public class MessengerService extends MessengerGrpc.MessengerImplBase {
         MessageResponse response = MessageResponse.newBuilder().setText(output).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
+        System.out.println("Message (Unary Call) : " + output);
     }
 
     @Override
