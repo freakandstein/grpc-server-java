@@ -35,7 +35,7 @@ message MessageResponse {
 }
 ```
 
-I wrote for testing purpose only on Swift iOS as client side. How Swift iOS handle gRPC communication from server we can see later in another my source code for Swift iOS. Here is short description about 4 RPC service type call.
+I wrote these codes for testing purpose only on Swift iOS as client side. How Swift iOS handle gRPC communication from server we can see the source that i wrote https://github.com/freakandstein/grpc-client-swift-iOS. Here is short description about 4 RPC service type call.
 #### 1. Unary Call (GetMessageUnary)
 One request from client, one response from server (Like REST)
 #### 2. Server Streaming Call (GetMessageServerStream)
